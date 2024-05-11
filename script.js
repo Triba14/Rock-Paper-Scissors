@@ -10,28 +10,28 @@ function getHumanChoice() {
     return (prompt("Write one of the three choices: rock, paper or scissors"));
 }
 
-function playRound() {
-    const humanChoice = getHumanChoice();
-    const computerChoice = getComputerChoice();
+function playRound(humanChoice, computerChoice) {
+    const humanSelection = getHumanChoice();
+    const computerSelection = getComputerChoice();
     let result;
-    if(humanChoice === computerChoice){
+    if(humanSelection === computerSelection){
         result = "It's a Tie!";
     }
     else{
-        switch(humanChoice){
+        switch(humanSelection){
             case "rock":
-                result = (computerChoice === "scissors") ? "You Win!" : "You lose!";
+                result = (computerSelection === "scissors") ? "You Win!" : "You lose!";
                 break;
             case "paper":
-                result = (computerChoice === "rock") ? "You Win!" : "You lose!";
+                result = (computerSelection === "rock") ? "You Win!" : "You lose!";
                 break;
             case "scissors":
-                result = (computerChoice === "paper") ? "You Win!" : "You lose!";
+                result = (computerSelection === "paper") ? "You Win!" : "You lose!";
                 break;
         }
     }
-    console.log("Human choice: " + humanChoice);
-    console.log("Computer choice: " + computerChoice);
+    console.log("Human choice: " + humanSelection);
+    console.log("Computer choice: " + computerSelection);
     console.log("Result: " + result);
     
     if (result === "You Win!") {
