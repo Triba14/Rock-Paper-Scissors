@@ -44,3 +44,11 @@ function playRound(humanChoice, computerChoice) {
     console.log("Computer Score: " + computerScore);
 }
 
+function playGame() {
+    playRound();
+    playRound();
+    playRound();
+    playRound();
+    playRound();
+}
+
