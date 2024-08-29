@@ -1,54 +1,91 @@
-const possibleStates = ["rock", "paper", "scissors"]
-let humanScore = 0
-let computerScore = 0
+const userScore = document.getElementById('user-score');
+const computerScore = document.getElementById('computer-score');
+const roundResult = document.getElementById('game-result');
+const resultMessage = document.getElementById('result-message')
+const rockButton = document.getElementById('rock-button');
+const paperButton = document.getElementById('paper-button');
+const scissorsButton = document.getElementById('scissors-button');
+const resetButton = document.getElementById('reset-button');
+
+let userScoreValue = 0;
+let computerScoreValue = 0;
 
 function getComputerChoice() {
-    return possibleStates[(Math.floor(Math.random() * possibleStates.length))];
+    const choices = ['Rock', 'Paper', 'Scissors'];
+    const randomIndex = Math.floor(Math.random() * 3);
+    return choices[randomIndex];
 }
 
-function getHumanChoice() {
-    return (prompt("Write one of the three choices: rock, paper or scissors"));
-}
-
-function playRound(humanChoice, computerChoice) {
-    const humanSelection = getHumanChoice();
-    const computerSelection = getComputerChoice();
-    let result;
-    if(humanSelection === computerSelection){
-        result = "It's a Tie!";
+function determineWinner(userChoice, computerChoice) {
+    if (userChoice === computerChoice) {
+        return 'It\'s a tie!';
     }
-    else{
-        switch(humanSelection){
-            case "rock":
-                result = (computerSelection === "scissors") ? "You Win!" : "You lose!";
-                break;
-            case "paper":
-                result = (computerSelection === "rock") ? "You Win!" : "You lose!";
-                break;
-            case "scissors":
-                result = (computerSelection === "paper") ? "You Win!" : "You lose!";
-                break;
-        }
+    if (
+        (userChoice === 'Rock' && computerChoice === 'Scissors') ||
+        (userChoice === 'Paper' && computerChoice === 'Rock') ||
+        (userChoice === 'Scissors' && computerChoice === 'Paper')
+    ) {
+        return 'You win!';
+    } else {
+        return 'Computer wins!';
     }
-    console.log("Human choice: " + humanSelection);
-    console.log("Computer choice: " + computerSelection);
-    console.log("Result: " + result);
-    
-    if (result === "You Win!") {
-        humanScore++;
-    } else if (result === "You lose!") {
-        computerScore++;
-    }
-    
-    console.log("Human Score: " + humanScore);
-    console.log("Computer Score: " + computerScore);
 }
 
-function playGame() {
-    playRound();
-    playRound();
-    playRound();
-    playRound();
-    playRound();
+function playRound(userChoice) {
+    const computerChoice = getComputerChoice();
+    const result = determineWinner(userChoice, computerChoice);
+    if (result === 'You win!') {
+        userScoreValue ++;
+        userScore.textContent = `User points: ${userScoreValue}`;
+    } else if (result === 'Computer wins!') {
+        computerScoreValue ++;
+        computerScore.textContent = `Computer points: ${computerScoreValue}`;
+    }
+
+    roundResult.textContent = `You chose ${userChoice}, Computer chose ${computerChoice}. ${result}`;
+    checkGameOver();
 }
 
+function disableButtons() {
+    rockButton.disabled = true;
+    paperButton.disabled = true;
+    scissorsButton.disabled = true;
+}
+
+function checkGameOver() {
+    if (userScoreValue === 5) {
+        resultMessage.textContent = 'Congrats! You won the game!🎊';
+        disableButtons();
+    } else if ( computerScoreValue === 5) {
+        resultMessage.textContent = 'Computer wins the game 🙁'
+        disableButtons();
+    }
+}
+
+function reset() {
+    userScoreValue = 0,
+    computerScoreValue = 0
+    userScore.textContent = 'User points: 0';
+    computerScore.textContent = 'Computer points 0';
+    roundResult.textContent = '';
+    resultMessage.textContent = '';
+    rockButton.disabled = false;
+    paperButton.disabled = false;
+    scissorsButton.disabled = false;
+}
+
+rockButton.addEventListener('click', function() {
+    playRound('Rock');
+});
+
+paperButton.addEventListener('click', function() {
+    playRound('Paper');
+});
+
+scissorsButton.addEventListener('click', function() {
+    playRound('Scissors');
+});
+
+resetButton.addEventListener('click', function() {
+    reset();
+})
