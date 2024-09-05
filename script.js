@@ -25,19 +25,19 @@ function determineWinner(userChoice, computerChoice) {
         (userChoice === 'Paper' && computerChoice === 'Rock') ||
         (userChoice === 'Scissors' && computerChoice === 'Paper')
     ) {
-        return 'You win!';
+        return 'You win!🧑';
     } else {
-        return 'Computer wins!';
+        return 'Computer wins!🤖';
     }
 }
 
 function playRound(userChoice) {
     const computerChoice = getComputerChoice();
     const result = determineWinner(userChoice, computerChoice);
-    if (result === 'You win!') {
+    if (result === 'You win!🧑') {
         userScoreValue ++;
         userScore.textContent = `User points: ${userScoreValue}`;
-    } else if (result === 'Computer wins!') {
+    } else if (result === 'Computer wins!🤖') {
         computerScoreValue ++;
         computerScore.textContent = `Computer points: ${computerScoreValue}`;
     }
@@ -54,10 +54,10 @@ function disableButtons() {
 
 function checkGameOver() {
     if (userScoreValue === 5) {
-        resultMessage.textContent = 'Congrats! You won the game!🎊';
+        resultMessage.textContent = '🎉Congratulations! You win!🏆';
         disableButtons();
     } else if ( computerScoreValue === 5) {
-        resultMessage.textContent = 'Computer wins the game 🙁'
+        resultMessage.textContent = 'Computer wins!🙁 Try again!'
         disableButtons();
     }
 }
