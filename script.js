@@ -63,7 +63,7 @@ function checkGameOver() {
 }
 
 function reset() {
-    userScoreValue = 0,
+    userScoreValue = 0
     computerScoreValue = 0
     userScore.textContent = 'User points: 0';
     computerScore.textContent = 'Computer points 0';
